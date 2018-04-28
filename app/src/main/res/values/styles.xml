@@ -1,11 +1,77 @@
-<resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CalculatorDisplay">
+        <item name="android:gravity">end|bottom</item>
+        <item name="android:ellipsize">start</item>
+        <item name="android:lines">2</item>
+        <item name="android:paddingLeft">@dimen/padding_normal</item>
+        <item name="android:paddingRight">@dimen/padding_normal</item>
+        <item name="android:paddingTop">@dimen/padding_large</item>
+        <item name="android:paddingBottom">@dimen/padding_large</item>
+        <item name="android:background">@color/backgroundLight</item>
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation_medium</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="CalculatorDisplay.LargeText">
+        <item name="android:textSize">@dimen/text_display_2</item>
+    </style>
+
+    <style name="CalculatorDisplay.SmallText">
+        <item name="android:textSize">@dimen/text_display_1</item>
+    </style>
+
+    <style name="CalculatorFact">
+        <item name="android:gravity">center</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:padding">@dimen/padding_normal</item>
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:maxLines">5</item>
+    </style>
+
+    <style name="ActionButton">
+        <item name="android:elevation" tools:targetApi="lollipop">@dimen/elevation_high</item>
+        <item name="android:layout_marginTop">@dimen/padding_normal</item>
+        <item name="android:text">@string/equals_button_title</item>
+        <item name="android:textSize">@dimen/text_button</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/backgroundLight</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="ActionButton.Rectangular">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/rectangular_button_height</item>
+        <item name="android:background">@drawable/bg_button_blue</item>
+    </style>
+
+    <style name="ActionButton.Round">
+        <item name="android:layout_width">@dimen/round_button_diameter</item>
+        <item name="android:layout_height">@dimen/round_button_diameter</item>
+        <item name="android:background">@drawable/bg_button_blue_circle</item>
+        <item name="android:layout_margin">@dimen/padding_normal</item>
+    </style>
+
+    <style name="NumpadButton">
+        <item name="android:background">@drawable/bg_ripple_grey</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="NumpadButton.Small">
+        <item name="android:layout_width">@dimen/rectangular_button_height</item>
+        <item name="android:layout_height">@dimen/rectangular_button_height</item>
+        <item name="android:textSize">@dimen/text_headline</item>
+    </style>
+
+    <style name="NumpadButton.Large">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/large_button_height</item>
+        <item name="android:textSize">@dimen/text_button</item>
+    </style>
 </resources>

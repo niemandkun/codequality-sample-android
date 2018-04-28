@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Codequality</string>
+    <string name="equals_button_title">=</string>
+    <string name="fact_placeholder">Try to input some math and then hit \"=\" to get result.</string>
 </resources>

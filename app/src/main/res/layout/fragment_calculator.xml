@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <TextView
+        android:id="@+id/calculator_display"
+        style="@style/CalculatorDisplay.LargeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="2 + 2\n= 4"/>
+
+    <TextView
+        android:id="@+id/calculator_fact"
+        style="@style/CalculatorFact"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        tools:text="@string/fact_placeholder"/>
+
+    <sample.codequality.NumpadView
+        android:id="@+id/calculator_numpad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="16"
+        tools:listitem="@layout/item_numpad_button"/>
+
+    <TextView
+        android:id="@+id/calculator_equal_button"
+        style="@style/ActionButton.Rectangular"/>
+
+</LinearLayout>
