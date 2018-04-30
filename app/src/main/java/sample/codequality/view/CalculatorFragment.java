@@ -1,4 +1,4 @@
-package sample.codequality;
+package sample.codequality.view;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import sample.codequality.R;
 import sample.codequality.numpad.NumpadView;
 
 public class CalculatorFragment extends Fragment {

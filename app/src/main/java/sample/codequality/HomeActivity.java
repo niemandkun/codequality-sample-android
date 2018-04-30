@@ -3,6 +3,8 @@ package sample.codequality;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import sample.codequality.view.CalculatorFragment;
+
 public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
