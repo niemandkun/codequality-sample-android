@@ -1,11 +1,11 @@
-package sample.codequality;
+package sample.codequality.numpad;
 
 import android.support.annotation.NonNull;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class NumpadLayout {
+public final class NumpadLayout {
     @NonNull
     static final NumpadLayout PORTRAIT = new NumpadLayout(
             Arrays.asList(

@@ -1,4 +1,4 @@
-package sample.codequality;
+package sample.codequality.numpad;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -8,7 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-public class NumpadView extends RecyclerView {
+public final class NumpadView extends RecyclerView {
     public NumpadView(@NonNull Context context) {
         super(context);
         init(context);

@@ -1,4 +1,4 @@
-package sample.codequality;
+package sample.codequality.numpad;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NumpadAdapter extends RecyclerView.Adapter<NumpadAdapter.ViewHolder> {
+import sample.codequality.R;
+
+final class NumpadAdapter extends RecyclerView.Adapter<NumpadAdapter.ViewHolder> {
     @NonNull
     private final List<NumpadButton> mButtons;
 
@@ -26,10 +28,7 @@ public class NumpadAdapter extends RecyclerView.Adapter<NumpadAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        NumpadButton value = mButtons.get(position);
-        holder.mTextView.setBackgroundResource(value.getButtonBackground());
-        holder.mTextView.setText(value.getButtonLabel());
-        holder.mTextView.setOnClickListener(view -> { });
+        holder.bind(mButtons.get(position));
     }
 
     @Override
@@ -37,13 +36,19 @@ public class NumpadAdapter extends RecyclerView.Adapter<NumpadAdapter.ViewHolder
         return mButtons.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    final class ViewHolder extends RecyclerView.ViewHolder {
         @NonNull
-        private final TextView mTextView;
+        private final TextView mButtonTitle;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mTextView = (TextView) itemView;
+            mButtonTitle = (TextView) itemView;
+        }
+
+        void bind(@NonNull NumpadButton item) {
+            mButtonTitle.setBackgroundResource(item.getButtonBackground());
+            mButtonTitle.setText(item.getButtonLabel());
+            mButtonTitle.setOnClickListener(view -> { });
         }
     }
 }

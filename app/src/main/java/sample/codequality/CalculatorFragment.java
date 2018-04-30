@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import sample.codequality.numpad.NumpadView;
 
 public class CalculatorFragment extends Fragment {
     @BindView(R.id.calculator_numpad)
@@ -44,7 +45,7 @@ public class CalculatorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
-        mEqualButton.setOnClickListener(v -> {});
+        mEqualButton.setOnClickListener(v -> { });
     }
 
     @Override

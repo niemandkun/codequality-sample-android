@@ -1,4 +1,4 @@
-package sample.codequality;
+package sample.codequality.numpad;
 
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import sample.codequality.R;
+
 public enum NumpadButton {
     SEVEN,  EIGHT,  NINE,       ADD,
     FOUR,   FIVE,   SIX,        SUBTRACT,
@@ -14,10 +16,9 @@ public enum NumpadButton {
     COMMA,  ZERO,   DEL,        DIVIDE;
 
     @NonNull
-    private final static Map<NumpadButton, String> BUTTON_LABELS = new HashMap<>();
+    private static final Map<NumpadButton, String> BUTTON_LABELS = new HashMap<>();
 
     static {
-        // FIXME
         BUTTON_LABELS.put(ONE, "1");
         BUTTON_LABELS.put(TWO, "2");
         BUTTON_LABELS.put(THREE, "3");
@@ -39,12 +40,12 @@ public enum NumpadButton {
     }
 
     @NonNull
-    public String getButtonLabel() {
+    String getButtonLabel() {
         return BUTTON_LABELS.get(this);
     }
 
     @DrawableRes
-    public int getButtonBackground() {
+    int getButtonBackground() {
         String label = getButtonLabel();
         if (TextUtils.isDigitsOnly(label) || ".".equals(label)) {
             return R.drawable.bg_ripple_grey;
