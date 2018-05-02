@@ -1,18 +1,22 @@
 package sample.codequality.view;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sample.codequality.R;
 import sample.codequality.numpad.NumpadView;
+import sample.codequality.viewmodel.CalculatorViewModel;
 
 public class CalculatorFragment extends Fragment {
     @BindView(R.id.calculator_numpad)
@@ -22,10 +26,16 @@ public class CalculatorFragment extends Fragment {
     View mEqualButton;
 
     @BindView(R.id.calculator_fact)
-    View mFact;
+    TextView mFact;
+
+    @BindView(R.id.calculator_display)
+    TextView mDisplay;
 
     @Nullable
     private Unbinder mUnbinder;
+
+    @Nullable
+    private CalculatorViewModel mViewModel;
 
     @NonNull
     public static CalculatorFragment newInstance() {
@@ -46,7 +56,15 @@ public class CalculatorFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mUnbinder = ButterKnife.bind(this, view);
-        mEqualButton.setOnClickListener(v -> { });
+        FragmentActivity activity = getActivity();
+        if (activity == null) {
+            throw new IllegalStateException();
+        }
+        mViewModel = ViewModelProviders.of(activity).get(CalculatorViewModel.class);
+        mViewModel.getDisplayText().observe(this, mDisplay::setText);
+        mViewModel.getFactText().observe(this, mFact::setText);
+        mEqualButton.setOnClickListener(v -> mViewModel.onEqualsButtonPressed());
+        mNumpad.setOnClickListener(mViewModel::onNumpadButtonPressed);
     }
 
     @Override

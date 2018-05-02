@@ -38,21 +38,25 @@ public class CalculatorImpl implements Calculator {
     }
 
     @NonNull
+    @Override
     public String getFirstOperand() {
         return mFirstOperand.toString();
     }
 
     @NonNull
+    @Override
     public String getSecondOperand() {
         return mSecondOperand.toString();
     }
 
     @NonNull
+    @Override
     public String getOperator() {
         return mOperator.toString();
     }
 
     @NonNull
+    @Override
     public String getResult() {
         return mResult.toString();
     }
@@ -90,6 +94,10 @@ public class CalculatorImpl implements Calculator {
     @Override
     public void undo() {
         StringBuilder lastInput = findLastInput();
+        if (lastInput == mResult) {
+            clear();
+            return;
+        }
         int lastInputLength = lastInput.length();
         if (lastInputLength == 0) {
             return;
@@ -105,6 +113,14 @@ public class CalculatorImpl implements Calculator {
         if (mResult.length() > 0) {
             return;
         }
+        if (mInputStack.peek() == mFirstOperand) {
+            if (mFirstOperand.length() == 0) {
+                return;
+            }
+            mResult.append(StringUtils.parseDoubleSafely(mFirstOperand.toString()));
+            mInputStack.push(mResult);
+            return;
+        }
         if (mInputStack.peek() != mSecondOperand) {
             throw new IllegalStateException();
         }
@@ -115,6 +131,7 @@ public class CalculatorImpl implements Calculator {
             throw new NoSuchOperatorException();
         }
         mResult.append(String.valueOf(operator.apply(firstOperand, secondOperand)));
+        mInputStack.push(mResult);
     }
 
     private void prepareToInputOperand() {
@@ -133,7 +150,13 @@ public class CalculatorImpl implements Calculator {
             throw new IllegalStateException();
         }
         if (input == mSecondOperand) {
+            if (input.length() == 0) {
+                mInputStack.pop();
+                mOperator.setLength(0);
+                return;
+            }
             execute();
+            input = mInputStack.peek();
         }
         if (input == mResult) {
             @NonNull String result = mResult.toString();
@@ -152,16 +175,13 @@ public class CalculatorImpl implements Calculator {
         mInputStack.push(mFirstOperand);
     }
 
-
     @NonNull
     private StringBuilder findLastInput() {
-        StringBuilder lastInput;
-        do {
+        StringBuilder lastInput = mInputStack.peek();
+        while (lastInput.length() == 0 && mInputStack.size() > 1) {
+            mInputStack.pop();
             lastInput = mInputStack.peek();
-            if (lastInput.length() == 0) {
-                mInputStack.pop();
-            }
-        } while (mInputStack.size() > 1);
+        }
         return lastInput;
     }
 }

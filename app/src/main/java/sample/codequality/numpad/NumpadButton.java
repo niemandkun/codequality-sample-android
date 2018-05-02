@@ -40,7 +40,7 @@ public enum NumpadButton {
     }
 
     @NonNull
-    String getButtonLabel() {
+    public String getButtonLabel() {
         return BUTTON_LABELS.get(this);
     }
 

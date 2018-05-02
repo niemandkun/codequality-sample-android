@@ -9,6 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 public final class NumpadView extends RecyclerView {
+    @Nullable
+    private OnClickListener mOnClickListener;
+
     public NumpadView(@NonNull Context context) {
         super(context);
         init(context);
@@ -27,7 +30,11 @@ public final class NumpadView extends RecyclerView {
     private void init(@NonNull Context context) {
         NumpadLayout layout = getNumpadLayout(context);
         setLayoutManager(new GridLayoutManager(context, layout.getColumnsCount()));
-        setAdapter(new NumpadAdapter(layout.getButtons()));
+        setAdapter(new NumpadAdapter(layout.getButtons(), numpadButton -> {
+            if (mOnClickListener != null) {
+                mOnClickListener.onClick(numpadButton);
+            }
+        }));
     }
 
     @NonNull
@@ -35,5 +42,13 @@ public final class NumpadView extends RecyclerView {
         return context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT
                 ? NumpadLayout.PORTRAIT
                 : NumpadLayout.LANDSCAPE;
+    }
+
+    public void setOnClickListener(@Nullable OnClickListener onClickListener) {
+        mOnClickListener = onClickListener;
+    }
+
+    public interface OnClickListener {
+        void onClick(@NonNull NumpadButton numpadButton);
     }
 }

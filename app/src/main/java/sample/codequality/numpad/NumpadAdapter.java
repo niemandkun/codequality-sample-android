@@ -15,8 +15,12 @@ final class NumpadAdapter extends RecyclerView.Adapter<NumpadAdapter.ViewHolder>
     @NonNull
     private final List<NumpadButton> mButtons;
 
-    NumpadAdapter(@NonNull List<NumpadButton> buttons) {
+    @NonNull
+    private final OnClickListener mOnClickListener;
+
+    NumpadAdapter(@NonNull List<NumpadButton> buttons, @NonNull OnClickListener onClickListener) {
         mButtons = buttons;
+        mOnClickListener = onClickListener;
     }
 
     @NonNull
@@ -48,7 +52,11 @@ final class NumpadAdapter extends RecyclerView.Adapter<NumpadAdapter.ViewHolder>
         void bind(@NonNull NumpadButton item) {
             mButtonTitle.setBackgroundResource(item.getButtonBackground());
             mButtonTitle.setText(item.getButtonLabel());
-            mButtonTitle.setOnClickListener(view -> { });
+            mButtonTitle.setOnClickListener(view -> mOnClickListener.onClick(item));
         }
+    }
+
+    public interface OnClickListener {
+        void onClick(@NonNull NumpadButton numpadButton);
     }
 }
