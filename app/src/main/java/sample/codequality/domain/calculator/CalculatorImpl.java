@@ -2,6 +2,8 @@ package sample.codequality.domain.calculator;
 
 import android.support.annotation.NonNull;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,9 @@ import java.util.Map;
 import sample.codequality.utils.StringUtils;
 
 public class CalculatorImpl implements Calculator {
+    @NonNull
+    private final static NumberFormat RESULT_FORMAT = new DecimalFormat("###.##");
+
     @NonNull
     private final Map<String, Operator> mOperators;
 
@@ -92,8 +97,8 @@ public class CalculatorImpl implements Calculator {
 
     @Override
     public void appendOperator(@NonNull String operator) {
-        if (mCurrentInput == mOperator) {
-            throw new IllegalStateException();
+        if (mCurrentInput == mFirstOperand && mCurrentInput.length() == 0) {
+            return;
         }
         if (mCurrentInput == mSecondOperand) {
             if (mSecondOperand.length() == 0) {
@@ -141,12 +146,13 @@ public class CalculatorImpl implements Calculator {
             if (mFirstOperand.length() == 0) {
                 return;
             }
-            mResult.append(StringUtils.parseDoubleSafely(mFirstOperand.toString()));
+            double operand = StringUtils.parseDoubleSafely(mFirstOperand.toString());
+            mResult.append(RESULT_FORMAT.format(operand));
             mCurrentInput = mResult;
             return;
         }
-        if (mCurrentInput != mSecondOperand) {
-            throw new IllegalStateException();
+        if (mSecondOperand.length() == 0) {
+            return;
         }
         double firstOperand = StringUtils.parseDoubleSafely(mFirstOperand.toString());
         double secondOperand = StringUtils.parseDoubleSafely(mSecondOperand.toString());
@@ -154,7 +160,7 @@ public class CalculatorImpl implements Calculator {
         if (operator == null) {
             throw new NoSuchOperatorException();
         }
-        mResult.append(String.valueOf(operator.apply(firstOperand, secondOperand)));
+        mResult.append(RESULT_FORMAT.format(operator.apply(firstOperand, secondOperand)));
         mCurrentInput = mResult;
     }
 
