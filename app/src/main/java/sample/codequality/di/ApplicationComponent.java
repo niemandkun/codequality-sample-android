@@ -7,8 +7,12 @@ import javax.inject.Singleton;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {CalculatorModule.class})
-public interface CalculatorComponent {
+@Component(modules = {
+        CalculatorModule.class,
+        ViewModelModule.class,
+        FactModule.class
+})
+public interface ApplicationComponent {
     @NonNull
     ViewModelFactory getViewModelFactory();
 }

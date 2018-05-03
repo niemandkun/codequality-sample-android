@@ -9,20 +9,20 @@ public final class NumpadLayout {
     @NonNull
     static final NumpadLayout PORTRAIT = new NumpadLayout(
             Arrays.asList(
-                    NumpadButton.SEVEN, NumpadButton.EIGHT, NumpadButton.NINE,  NumpadButton.ADD,
-                    NumpadButton.FOUR,  NumpadButton.FIVE,  NumpadButton.SIX,   NumpadButton.SUBTRACT,
-                    NumpadButton.ONE,   NumpadButton.TWO,   NumpadButton.THREE, NumpadButton.MULTIPLY,
-                    NumpadButton.COMMA, NumpadButton.ZERO,  NumpadButton.DEL,   NumpadButton.DIVIDE
+                    NumpadButton.NUM_7, NumpadButton.NUM_8, NumpadButton.NUM_9,  NumpadButton.ADD,
+                    NumpadButton.NUM_4,  NumpadButton.NUM_5,  NumpadButton.NUM_6,   NumpadButton.SUBTRACT,
+                    NumpadButton.NUM_1,   NumpadButton.NUM_2,   NumpadButton.NUM_3, NumpadButton.MULTIPLY,
+                    NumpadButton.COMMA, NumpadButton.NUM_0,  NumpadButton.DEL,   NumpadButton.DIVIDE
             ), 4
     );
 
     @NonNull
     static final NumpadLayout LANDSCAPE = new NumpadLayout(
             Arrays.asList(
-                    NumpadButton.FIVE,  NumpadButton.SIX,   NumpadButton.SEVEN,     NumpadButton.EIGHT,
-                    NumpadButton.NINE,  NumpadButton.DEL,   NumpadButton.ADD,       NumpadButton.SUBTRACT,
-                    NumpadButton.ZERO,  NumpadButton.ONE,   NumpadButton.TWO,       NumpadButton.THREE,
-                    NumpadButton.FOUR,  NumpadButton.COMMA, NumpadButton.MULTIPLY,  NumpadButton.DIVIDE
+                    NumpadButton.NUM_5,  NumpadButton.NUM_6,   NumpadButton.NUM_7,     NumpadButton.NUM_8,
+                    NumpadButton.NUM_9,  NumpadButton.DEL,   NumpadButton.ADD,       NumpadButton.SUBTRACT,
+                    NumpadButton.NUM_0,  NumpadButton.NUM_1,   NumpadButton.NUM_2,       NumpadButton.NUM_3,
+                    NumpadButton.NUM_4,  NumpadButton.COMMA, NumpadButton.MULTIPLY,  NumpadButton.DIVIDE
             ), 8
     );
 
