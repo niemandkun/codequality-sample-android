@@ -5,8 +5,8 @@ import android.util.Log;
 
 import javax.inject.Inject;
 
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
-import io.reactivex.internal.schedulers.IoScheduler;
 import sample.codequality.domain.fact.FactRepository;
 
 public class GetFactUseCase {
@@ -14,17 +14,16 @@ public class GetFactUseCase {
     private final FactRepository mFactRepository;
 
     @NonNull
-    private final IoScheduler mIoScheduler;
+    private final Scheduler mIoScheduler;
 
     @Inject
-    public GetFactUseCase(@NonNull FactRepository factRepository, @NonNull IoScheduler ioScheduler) {
+    public GetFactUseCase(@NonNull FactRepository factRepository, @NonNull Scheduler ioScheduler) {
         mFactRepository = factRepository;
         mIoScheduler = ioScheduler;
     }
 
     @NonNull
     public Single<String> getTriviaFact(double number) {
-        Log.e("GetFactUseCase", "getTriviaFact");
         return Single.fromCallable(() -> mFactRepository.getTriviaFact(number)).subscribeOn(mIoScheduler);
     }
 }

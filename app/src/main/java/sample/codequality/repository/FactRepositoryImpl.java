@@ -1,7 +1,6 @@
 package sample.codequality.repository;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -12,6 +11,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import sample.codequality.domain.fact.Fact;
 import sample.codequality.domain.fact.FactRepository;
+import sample.codequality.repository.web.ApiException;
 import sample.codequality.repository.web.EmptyBodyException;
 import sample.codequality.repository.web.HttpResponseCodeException;
 import sample.codequality.repository.web.NumbersFactsApi;
@@ -31,10 +31,14 @@ public class FactRepositoryImpl implements FactRepository {
     }
 
     @NonNull
-    public String getTriviaFact(double number) throws IOException {
-        Log.e("FactRepo", "getTriviaFact");
+    public String getTriviaFact(double number) {
         String numberStr = mFormat.format(number);
-        Response<Fact> response = mApi.getFact(numberStr, NumbersFactsApi.CATEGORY_TRIVIA).execute();
+        Response<Fact> response;
+        try {
+            response = mApi.getFact(numberStr, NumbersFactsApi.CATEGORY_TRIVIA).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (!response.isSuccessful()) {
             throw new HttpResponseCodeException();
         }
@@ -42,7 +46,9 @@ public class FactRepositoryImpl implements FactRepository {
         if (fact == null) {
             throw new EmptyBodyException();
         }
-        Log.e("FactRepo", "getTriviaFact ok");
+        if (fact.getText().startsWith("ERROR")) {
+            throw new ApiException(fact.getText());
+        }
         return fact.getText();
     }
 }

@@ -24,14 +24,7 @@ public class FactModule {
     @Provides
     @NonNull
     @Singleton
-    IoScheduler provideIoScheduler() {
-        return (IoScheduler) Schedulers.io();
-    }
-
-    @Provides
-    @NonNull
-    @Singleton
-    GetFactUseCase provideGetFactUseCase(@NonNull FactRepository factRepository, @NonNull IoScheduler scheduler) {
-        return new GetFactUseCase(factRepository, scheduler);
+    GetFactUseCase provideGetFactUseCase(@NonNull FactRepository factRepository) {
+        return new GetFactUseCase(factRepository, Schedulers.io());
     }
 }
