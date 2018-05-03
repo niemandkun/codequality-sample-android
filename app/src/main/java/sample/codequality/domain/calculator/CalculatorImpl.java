@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import sample.codequality.utils.StringUtils;
+import sample.codequality.util.StringUtils;
 
 public class CalculatorImpl implements Calculator {
     @NonNull
@@ -164,8 +164,7 @@ public class CalculatorImpl implements Calculator {
         mCurrentInput = mResult;
     }
 
-    @Override
-    public void clear() {
+    private void clear() {
         mFirstOperand.setLength(0);
         mSecondOperand.setLength(0);
         mOperator.setLength(0);

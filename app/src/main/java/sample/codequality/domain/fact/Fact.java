@@ -1,4 +1,4 @@
-package sample.codequality.domain.facts;
+package sample.codequality.domain.fact;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

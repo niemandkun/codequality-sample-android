@@ -1,4 +1,4 @@
-package sample.codequality.utils;
+package sample.codequality.util;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

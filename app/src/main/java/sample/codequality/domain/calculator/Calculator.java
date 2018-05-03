@@ -23,7 +23,5 @@ public interface Calculator {
 
     void undo();
 
-    void clear();
-
     void evaluate();
 }

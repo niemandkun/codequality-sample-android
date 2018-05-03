@@ -9,7 +9,7 @@ import dagger.Provides;
 import io.reactivex.internal.schedulers.IoScheduler;
 import io.reactivex.schedulers.Schedulers;
 import sample.codequality.domain.GetFactUseCase;
-import sample.codequality.domain.facts.FactRepository;
+import sample.codequality.domain.fact.FactRepository;
 import sample.codequality.repository.FactRepositoryImpl;
 
 @Module

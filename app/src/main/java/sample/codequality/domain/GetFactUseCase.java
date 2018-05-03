@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Single;
 import io.reactivex.internal.schedulers.IoScheduler;
-import sample.codequality.domain.facts.FactRepository;
+import sample.codequality.domain.fact.FactRepository;
 
 public class GetFactUseCase {
     @NonNull

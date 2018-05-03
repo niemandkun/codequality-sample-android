@@ -6,7 +6,7 @@ import android.support.annotation.StringDef;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import sample.codequality.domain.facts.Fact;
+import sample.codequality.domain.fact.Fact;
 
 public interface NumbersFactsApi {
     @NonNull
