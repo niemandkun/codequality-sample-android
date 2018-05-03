@@ -30,6 +30,10 @@ public final class StringUtils {
         if (string == null || string.isEmpty()) {
             return 0;
         }
-        return Double.parseDouble(string);
+        try {
+            return Double.parseDouble(string);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 }

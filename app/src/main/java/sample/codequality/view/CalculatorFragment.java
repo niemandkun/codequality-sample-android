@@ -15,8 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import sample.codequality.R;
-import sample.codequality.numpad.NumpadView;
-import sample.codequality.viewmodel.CalculatorViewModel;
+import sample.codequality.view.numpad.NumpadView;
 
 public class CalculatorFragment extends Fragment {
     @BindView(R.id.calculator_numpad)

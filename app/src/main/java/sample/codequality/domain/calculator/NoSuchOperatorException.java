@@ -1,4 +1,4 @@
-package sample.codequality.model;
+package sample.codequality.domain.calculator;
 
 public class NoSuchOperatorException extends RuntimeException {
 }

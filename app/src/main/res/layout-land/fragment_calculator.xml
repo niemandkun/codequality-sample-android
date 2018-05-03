@@ -23,7 +23,7 @@
         android:layout_below="@id/calculator_display"
         tools:text="@string/fact_placeholder"/>
 
-    <sample.codequality.numpad.NumpadView
+    <sample.codequality.view.numpad.NumpadView
         android:id="@+id/calculator_numpad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

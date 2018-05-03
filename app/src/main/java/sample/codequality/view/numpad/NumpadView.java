@@ -1,4 +1,4 @@
-package sample.codequality.numpad;
+package sample.codequality.view.numpad;
 
 import android.content.Context;
 import android.content.res.Configuration;
