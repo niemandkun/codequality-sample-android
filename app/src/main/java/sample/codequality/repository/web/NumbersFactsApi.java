@@ -1,4 +1,4 @@
-package sample.codequality.web;
+package sample.codequality.repository.web;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.StringDef;

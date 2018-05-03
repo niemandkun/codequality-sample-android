@@ -1,10 +1,8 @@
 package sample.codequality.view;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +15,7 @@ import butterknife.Unbinder;
 import sample.codequality.R;
 import sample.codequality.view.numpad.NumpadView;
 
-public class CalculatorFragment extends Fragment {
+public class CalculatorFragment extends BaseFragment {
     @BindView(R.id.calculator_numpad)
     NumpadView mNumpad;
 
@@ -59,7 +57,7 @@ public class CalculatorFragment extends Fragment {
         if (activity == null) {
             throw new IllegalStateException();
         }
-        mViewModel = ViewModelProviders.of(activity).get(CalculatorViewModel.class);
+        mViewModel = createViewModel(CalculatorViewModel.class);
         mViewModel.getDisplayText().observe(this, mDisplay::setText);
         mViewModel.getFactText().observe(this, mFact::setText);
         mEqualButton.setOnClickListener(v -> mViewModel.onEqualsButtonPressed());

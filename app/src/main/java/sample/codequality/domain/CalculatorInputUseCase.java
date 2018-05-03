@@ -1,11 +1,12 @@
-package sample.codequality.domain.calculator;
+package sample.codequality.domain;
 
 import android.support.annotation.NonNull;
 
+import java.util.concurrent.Executor;
+
 import javax.inject.Inject;
 
-import io.reactivex.Single;
-import io.reactivex.internal.schedulers.ComputationScheduler;
+import sample.codequality.domain.calculator.Calculator;
 import sample.codequality.view.numpad.NumpadButton;
 
 public class CalculatorInputUseCase {
@@ -13,28 +14,34 @@ public class CalculatorInputUseCase {
     private final Calculator mCalculator;
 
     @NonNull
-    private final ComputationScheduler mComputationScheduler;
+    private final Executor mExecutor;
 
     @Inject
-    public CalculatorInputUseCase(@NonNull Calculator calculator, @NonNull ComputationScheduler computationScheduler) {
+    public CalculatorInputUseCase(@NonNull Calculator calculator, @NonNull Executor executor) {
         mCalculator = calculator;
-        mComputationScheduler = computationScheduler;
+        mExecutor = executor;
     }
 
-    @NonNull
-    public Single<String> handleInput(@NonNull NumpadButton numpadButton) {
-        return Single.fromCallable(() -> {
-            dispatchInput(numpadButton, mCalculator);
-            return renderCalculatorText(mCalculator);
-        }).subscribeOn(mComputationScheduler);
+    public void handleInput(@NonNull NumpadButton numpadButton, @NonNull Callback callback) {
+        mExecutor.execute(() -> {
+            try {
+                dispatchInput(numpadButton, mCalculator);
+                callback.onSuccess(renderCalculatorText(mCalculator));
+            } catch (Throwable throwable) {
+                callback.onError(throwable);
+            }
+        });
     }
 
-    @NonNull
-    public Single<String> evaluateExpression() {
-        return Single.fromCallable(() -> {
-            mCalculator.execute();
-            return renderCalculatorText(mCalculator);
-        }).subscribeOn(mComputationScheduler);
+    public void evaluateExpression(@NonNull EvaluationCallback callback) {
+        mExecutor.execute(() -> {
+            try {
+                mCalculator.evaluate();
+                callback.onSuccess(renderCalculatorText(mCalculator), Double.parseDouble(mCalculator.getResult()));
+            } catch (Throwable throwable) {
+                callback.onError(throwable);
+            }
+        });
     }
 
     private static void dispatchInput(@NonNull NumpadButton numpadButton, @NonNull Calculator calculator) {
@@ -77,5 +84,17 @@ public class CalculatorInputUseCase {
             text.append("\n= ").append(result);
         }
         return text.toString();
+    }
+
+    public interface Callback {
+        void onSuccess(@NonNull String displayText);
+
+        void onError(@NonNull Throwable throwable);
+    }
+
+    public interface EvaluationCallback {
+        void onSuccess(@NonNull String displayText, double evaluationResult);
+
+        void onError(@NonNull Throwable throwable);
     }
 }

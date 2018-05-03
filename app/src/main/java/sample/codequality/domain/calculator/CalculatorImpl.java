@@ -99,7 +99,7 @@ public class CalculatorImpl implements Calculator {
             if (mSecondOperand.length() == 0) {
                 mOperator.setLength(0);
             } else {
-                execute();
+                evaluate();
             }
         }
         if (mCurrentInput == mResult) {
@@ -133,7 +133,7 @@ public class CalculatorImpl implements Calculator {
     }
 
     @Override
-    public void execute() {
+    public void evaluate() {
         if (mResult.length() > 0) {
             return;
         }

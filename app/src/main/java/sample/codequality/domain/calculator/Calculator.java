@@ -25,5 +25,5 @@ public interface Calculator {
 
     void clear();
 
-    void execute();
+    void evaluate();
 }

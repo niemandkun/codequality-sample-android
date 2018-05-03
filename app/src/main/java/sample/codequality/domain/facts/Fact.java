@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-import sample.codequality.web.NumbersFactsApi;
+import sample.codequality.repository.web.NumbersFactsApi;
 
 public class Fact {
     @NonNull

@@ -3,20 +3,29 @@ package sample.codequality.view;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
-import sample.codequality.domain.calculator.CalculatorInputUseCase;
-import sample.codequality.domain.facts.GetFactUseCase;
+import javax.inject.Inject;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import sample.codequality.domain.CalculatorInputUseCase;
+import sample.codequality.domain.GetFactUseCase;
 import sample.codequality.view.numpad.NumpadButton;
 
 public class CalculatorViewModel extends ViewModel {
     @NonNull
-    private final MutableLiveData<String> mDisplayText;
+    private final MutableLiveData<String> mDisplayText = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<String> mFactText;
+    private final MutableLiveData<String> mFactText = new MutableLiveData<>();
 
     @NonNull
-    private final MutableLiveData<String> mErrorMessage;
+    private final MutableLiveData<String> mErrorMessage = new MutableLiveData<>();
+
+    @NonNull
+    private final CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     @NonNull
     private final CalculatorInputUseCase mCalculatorInputUseCase;
@@ -24,12 +33,13 @@ public class CalculatorViewModel extends ViewModel {
     @NonNull
     private final GetFactUseCase mGetFactUseCase;
 
-    public CalculatorViewModel() {
-        mDisplayText = new MutableLiveData<>();
-        mFactText = new MutableLiveData<>();
-        mErrorMessage = new MutableLiveData<>();
-        mCalculatorInputUseCase = null;
-        mGetFactUseCase = null;
+    @Inject
+    public CalculatorViewModel(
+            @NonNull CalculatorInputUseCase calculatorInputUseCase,
+            @NonNull GetFactUseCase factUseCase
+    ) {
+        mCalculatorInputUseCase = calculatorInputUseCase;
+        mGetFactUseCase = factUseCase;
     }
 
     @NonNull
@@ -43,15 +53,32 @@ public class CalculatorViewModel extends ViewModel {
     }
 
     public void onNumpadButtonPressed(@NonNull NumpadButton button) {
-        mCalculatorInputUseCase.handleInput(button).subscribe(mDisplayText::postValue);
-    }
-
-    public void onEqualsButtonPressed() {
-        mCalculatorInputUseCase.execute(new CalculatorInputUseCase.Callback() {
+        mCalculatorInputUseCase.handleInput(button, new CalculatorInputUseCase.Callback() {
             @Override
             public void onSuccess(@NonNull String displayText) {
                 mDisplayText.postValue(displayText);
-                mGetFactUseCase.getTriviaFact(Double.parseDouble(displayText));
+            }
+
+            @Override
+            public void onError(@NonNull Throwable throwable) {
+                mErrorMessage.postValue(throwable.getMessage());
+            }
+        });
+    }
+
+    public void onEqualsButtonPressed() {
+        mCalculatorInputUseCase.evaluateExpression(new CalculatorInputUseCase.EvaluationCallback() {
+            @Override
+            public void onSuccess(@NonNull String displayText, double evaluationResult) {
+                Log.e("CalculatorViewModel", "onEqualsButtonPressed->onSuccess");
+                mDisplayText.postValue(displayText);
+                Log.e("CalculatorViewModel", "onEqualsButtonPressed->onSuccess post ok");
+                Disposable disposable = mGetFactUseCase
+                        .getTriviaFact(evaluationResult)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(mFactText::postValue);
+                mCompositeDisposable.add(disposable);
+                Log.e("CalculatorViewModel", "onEqualsButtonPressed->onSuccess ok");
             }
 
             @Override
