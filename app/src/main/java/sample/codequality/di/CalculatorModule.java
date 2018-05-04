@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
@@ -33,14 +33,17 @@ public class CalculatorModule {
     @Provides
     @NonNull
     @Singleton
-    Executor provideExecutor() {
+    ExecutorService provideExecutor() {
         return Executors.newSingleThreadExecutor();
     }
 
     @Provides
     @NonNull
     @Singleton
-    CalculatorInputUseCase provideCalculatorInputUseCase(@NonNull Calculator calculator, @NonNull Executor executor) {
+    CalculatorInputUseCase provideCalculatorInputUseCase(
+            @NonNull Calculator calculator,
+            @NonNull ExecutorService executor
+    ) {
         return new CalculatorInputUseCase(calculator, executor);
     }
 }

@@ -12,7 +12,7 @@ public final class NumpadLayout {
                     NumpadButton.NUM_7, NumpadButton.NUM_8, NumpadButton.NUM_9,  NumpadButton.ADD,
                     NumpadButton.NUM_4,  NumpadButton.NUM_5,  NumpadButton.NUM_6,   NumpadButton.SUBTRACT,
                     NumpadButton.NUM_1,   NumpadButton.NUM_2,   NumpadButton.NUM_3, NumpadButton.MULTIPLY,
-                    NumpadButton.COMMA, NumpadButton.NUM_0,  NumpadButton.DEL,   NumpadButton.DIVIDE
+                    NumpadButton.COMMA, NumpadButton.NUM_0,  NumpadButton.UNDO,   NumpadButton.DIVIDE
             ), 4
     );
 
@@ -20,7 +20,7 @@ public final class NumpadLayout {
     static final NumpadLayout LANDSCAPE = new NumpadLayout(
             Arrays.asList(
                     NumpadButton.NUM_5,  NumpadButton.NUM_6,   NumpadButton.NUM_7,     NumpadButton.NUM_8,
-                    NumpadButton.NUM_9,  NumpadButton.DEL,   NumpadButton.ADD,       NumpadButton.SUBTRACT,
+                    NumpadButton.NUM_9,  NumpadButton.UNDO,   NumpadButton.ADD,       NumpadButton.SUBTRACT,
                     NumpadButton.NUM_0,  NumpadButton.NUM_1,   NumpadButton.NUM_2,       NumpadButton.NUM_3,
                     NumpadButton.NUM_4,  NumpadButton.COMMA, NumpadButton.MULTIPLY,  NumpadButton.DIVIDE
             ), 8

@@ -2,7 +2,8 @@ package sample.codequality.domain;
 
 import android.support.annotation.NonNull;
 
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
@@ -14,16 +15,17 @@ public class CalculatorInputUseCase {
     private final Calculator mCalculator;
 
     @NonNull
-    private final Executor mExecutor;
+    private final ExecutorService mExecutor;
 
     @Inject
-    public CalculatorInputUseCase(@NonNull Calculator calculator, @NonNull Executor executor) {
+    public CalculatorInputUseCase(@NonNull Calculator calculator, @NonNull ExecutorService executor) {
         mCalculator = calculator;
         mExecutor = executor;
     }
 
-    public void handleInput(@NonNull NumpadButton numpadButton, @NonNull Callback callback) {
-        mExecutor.execute(() -> {
+    @NonNull
+    public Future handleInput(@NonNull NumpadButton numpadButton, @NonNull Callback callback) {
+        return mExecutor.submit(() -> {
             try {
                 dispatchInput(numpadButton, mCalculator);
                 callback.onSuccess(renderCalculatorText(mCalculator));
@@ -33,8 +35,9 @@ public class CalculatorInputUseCase {
         });
     }
 
-    public void evaluateExpression(@NonNull EvaluationCallback callback) {
-        mExecutor.execute(() -> {
+    @NonNull
+    public Future evaluateExpression(@NonNull EvaluationCallback callback) {
+        return mExecutor.submit(() -> {
             try {
                 mCalculator.evaluate();
                 callback.onSuccess(renderCalculatorText(mCalculator), Double.parseDouble(mCalculator.getResult()));
@@ -46,7 +49,7 @@ public class CalculatorInputUseCase {
 
     private static void dispatchInput(@NonNull NumpadButton numpadButton, @NonNull Calculator calculator) {
         switch (numpadButton) {
-            case DEL:
+            case UNDO:
                 calculator.undo();
                 break;
             case COMMA:

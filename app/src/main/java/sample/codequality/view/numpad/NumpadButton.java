@@ -25,7 +25,7 @@ public enum NumpadButton {
     SUBTRACT,
     MULTIPLY,
     DIVIDE,
-    DEL;
+    UNDO;
 
     @NonNull
     private static final Map<NumpadButton, String> BUTTON_LABELS = new HashMap<>();
@@ -43,7 +43,7 @@ public enum NumpadButton {
         BUTTON_LABELS.put(NUM_0, "0");
 
         BUTTON_LABELS.put(COMMA, ".");
-        BUTTON_LABELS.put(DEL, "<");
+        BUTTON_LABELS.put(UNDO, "<");
 
         BUTTON_LABELS.put(ADD, "+");
         BUTTON_LABELS.put(SUBTRACT, "-");
