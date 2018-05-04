@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 import sample.codequality.domain.calculator.Calculator;
 import sample.codequality.view.numpad.NumpadButton;
 
-public class CalculatorInputUseCaseTest {
+public class CalculatorInputTest {
     private static final String EMPTY_STRING = "";
 
     private static ExecutorService sExecutor;

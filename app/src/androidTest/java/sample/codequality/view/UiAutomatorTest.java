@@ -34,13 +34,16 @@ public class UiAutomatorTest {
         String y = "4";
         String operation = "+";
         launchApp(MY_APP_PACKAGE);
-        double myResult = calcByMyApp(x, operation, y, "=");
+        double myResult = calculateByMyApp(x, operation, y, "=");
         launchApp(CALC_PACKAGE);
         double calcResult = calculateByStandardCalc(x, operation, y, "=");
         Assert.assertEquals(calcResult, myResult, EPSILON);
     }
 
-    private double calcByMyApp(@NonNull String... buttonsSequence) {
+    private double calculateByMyApp(@NonNull String... buttonsSequence) {
+        while (mDevice.findObject(By.res(MY_APP_PACKAGE, "calculator_display")).getText() != null) {
+            mDevice.findObject(By.text("<")).click();
+        }
         for (String button : buttonsSequence) {
             mDevice.findObject(By.text(button)).click();
         }

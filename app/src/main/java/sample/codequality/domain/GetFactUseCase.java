@@ -1,12 +1,11 @@
 package sample.codequality.domain;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
-import io.reactivex.Single;
 import sample.codequality.domain.fact.FactRepository;
 
 public class GetFactUseCase {
@@ -23,7 +22,7 @@ public class GetFactUseCase {
     }
 
     @NonNull
-    public Single<String> getTriviaFact(double number) {
-        return Single.fromCallable(() -> mFactRepository.getTriviaFact(number)).subscribeOn(mIoScheduler);
+    public Observable<String> getTriviaFact(double number) {
+        return Observable.fromCallable(() -> mFactRepository.getTriviaFact(number)).subscribeOn(mIoScheduler);
     }
 }

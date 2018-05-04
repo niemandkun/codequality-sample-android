@@ -1,7 +1,10 @@
 package sample.codequality.domain;
 
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
+import java.lang.ref.WeakReference;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -35,16 +38,8 @@ public class CalculatorInputUseCase {
         });
     }
 
-    @NonNull
-    public Future evaluateExpression(@NonNull EvaluationCallback callback) {
-        return mExecutor.submit(() -> {
-            try {
-                mCalculator.evaluate();
-                callback.onSuccess(renderCalculatorText(mCalculator), Double.parseDouble(mCalculator.getResult()));
-            } catch (Throwable throwable) {
-                callback.onError(throwable);
-            }
-        });
+    public void evaluateExpression(@NonNull EvaluationCallback callback) {
+        new EvaluateCalculatorTask(mCalculator, callback).execute();
     }
 
     private static void dispatchInput(@NonNull NumpadButton numpadButton, @NonNull Calculator calculator) {
@@ -89,6 +84,35 @@ public class CalculatorInputUseCase {
         return text.toString();
     }
 
+    private static class EvaluateCalculatorTask extends AsyncTask<Void, Void, Void> {
+        @NonNull
+        private final WeakReference<Calculator> mCalculator;
+
+        @NonNull
+        private final WeakReference<EvaluationCallback> mCallback;
+
+        private EvaluateCalculatorTask(@NonNull Calculator calculator, @NonNull EvaluationCallback callback) {
+            mCalculator = new WeakReference<>(calculator);
+            mCallback = new WeakReference<>(callback);
+        }
+
+        @Override
+        protected Void doInBackground(@NonNull Void... ignored) {
+            Calculator calculator = mCalculator.get();
+            EvaluationCallback callback = mCallback.get();
+            try {
+                calculator.evaluate();
+                Double result = calculator.getResult().isEmpty()
+                        ? null
+                        : Double.parseDouble(calculator.getResult());
+                callback.onSuccess(renderCalculatorText(calculator), result);
+            } catch (Throwable throwable) {
+                callback.onError(throwable);
+            }
+            return null;
+        }
+    }
+
     public interface Callback {
         void onSuccess(@NonNull String displayText);
 
@@ -96,7 +120,7 @@ public class CalculatorInputUseCase {
     }
 
     public interface EvaluationCallback {
-        void onSuccess(@NonNull String displayText, double evaluationResult);
+        void onSuccess(@NonNull String displayText, @Nullable Double evaluationResult);
 
         void onError(@NonNull Throwable throwable);
     }

@@ -3,7 +3,7 @@ package sample.codequality.view;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
-import android.util.Log;
+import android.support.annotation.Nullable;
 
 import javax.inject.Inject;
 
@@ -69,16 +69,16 @@ public class CalculatorViewModel extends ViewModel {
     public void onEqualsButtonPressed() {
         mCalculatorInputUseCase.evaluateExpression(new CalculatorInputUseCase.EvaluationCallback() {
             @Override
-            public void onSuccess(@NonNull String displayText, double evaluationResult) {
-                Log.e("CalculatorViewModel", "onEqualsButtonPressed->onSuccess");
+            public void onSuccess(@NonNull String displayText, @Nullable Double evaluationResult) {
                 mDisplayText.postValue(displayText);
-                Log.e("CalculatorViewModel", "onEqualsButtonPressed->onSuccess post ok");
+                if (evaluationResult == null) {
+                    return;
+                }
                 Disposable disposable = mGetFactUseCase
                         .getTriviaFact(evaluationResult)
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(mFactText::postValue);
+                        .subscribe(mFactText::postValue, t -> mErrorMessage.postValue(t.getMessage()));
                 mCompositeDisposable.add(disposable);
-                Log.e("CalculatorViewModel", "onEqualsButtonPressed->onSuccess ok");
             }
 
             @Override
