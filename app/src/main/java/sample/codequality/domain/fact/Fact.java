@@ -37,6 +37,13 @@ public class Fact {
     @SerializedName("year")
     private String mYear;
 
+    public Fact() {
+    }
+
+    public Fact(@NonNull String text) {
+        mText = text;
+    }
+
     @NonNull
     public String getText() {
         return mText;

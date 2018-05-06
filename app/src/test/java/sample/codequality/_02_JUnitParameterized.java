@@ -1,4 +1,4 @@
-package sample.codequality.domain.calculator;
+package sample.codequality;
 
 import junit.framework.Assert;
 
@@ -12,8 +12,12 @@ import org.junit.runners.Parameterized;
 import java.util.HashMap;
 import java.util.Map;
 
+import sample.codequality.domain.calculator.Calculator;
+import sample.codequality.domain.calculator.CalculatorImpl;
+import sample.codequality.domain.calculator.Operator;
+
 @RunWith(Parameterized.class)
-public class ParameterizedCalculatorTest {
+public class _02_JUnitParameterized {
     @Parameterized.Parameters(name = "{0} + {1} = {2}")
     public static String[][] provideParameters() {
         return new String[][] {

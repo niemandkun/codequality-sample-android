@@ -1,4 +1,4 @@
-package sample.codequality.domain;
+package sample.codequality;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -7,9 +7,10 @@ import org.mockito.Mockito;
 
 import io.reactivex.observers.TestObserver;
 import io.reactivex.schedulers.TestScheduler;
+import sample.codequality.domain.GetFactUseCase;
 import sample.codequality.domain.fact.FactRepository;
 
-public class GetFactUseCaseTest {
+public class _09_ObservableTest {
     private final static String TESTING_FACT = "not x! but fact";
 
     private static TestScheduler sScheduler;

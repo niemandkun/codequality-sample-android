@@ -1,4 +1,4 @@
-package sample.codequality.view;
+package sample.codequality;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
-public class UiAutomatorTest {
+public class _11_UiAutomatorTest {
     private static final double EPSILON = 1e-5;
     private static final String MY_APP_PACKAGE = "sample.codequality";
     private static final String CALC_PACKAGE = "com.android.calculator2";

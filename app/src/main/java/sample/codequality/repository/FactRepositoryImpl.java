@@ -22,14 +22,11 @@ public class FactRepositoryImpl implements FactRepository {
     @NonNull
     private final NumbersFactsApi mApi;
 
-    public FactRepositoryImpl() {
-        mApi = new Retrofit.Builder()
-                .baseUrl(NumbersFactsApi.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(NumbersFactsApi.class);
+    public FactRepositoryImpl(@NonNull NumbersFactsApi numbersFactsApi) {
+        mApi = numbersFactsApi;
     }
 
+    @Override
     @NonNull
     public String getTriviaFact(double number) {
         String numberStr = mFormat.format(number);

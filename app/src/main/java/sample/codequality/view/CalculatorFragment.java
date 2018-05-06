@@ -15,7 +15,7 @@ import butterknife.Unbinder;
 import sample.codequality.R;
 import sample.codequality.view.numpad.NumpadView;
 
-public class CalculatorFragment extends BaseFragment {
+public class CalculatorFragment extends BaseFragment<CalculatorViewModel> {
     @BindView(R.id.calculator_numpad)
     NumpadView mNumpad;
 
@@ -30,9 +30,6 @@ public class CalculatorFragment extends BaseFragment {
 
     @Nullable
     private Unbinder mUnbinder;
-
-    @Nullable
-    private CalculatorViewModel mViewModel;
 
     @NonNull
     public static CalculatorFragment newInstance() {
@@ -57,11 +54,11 @@ public class CalculatorFragment extends BaseFragment {
         if (activity == null) {
             throw new IllegalStateException();
         }
-        mViewModel = createViewModel(CalculatorViewModel.class);
-        mViewModel.getDisplayText().observe(this, mDisplay::setText);
-        mViewModel.getFactText().observe(this, mFact::setText);
-        mEqualButton.setOnClickListener(v -> mViewModel.onEqualsButtonPressed());
-        mNumpad.setOnClickListener(mViewModel::onNumpadButtonPressed);
+        CalculatorViewModel viewModel = createViewModel(CalculatorViewModel.class);
+        viewModel.getDisplayText().observe(this, mDisplay::setText);
+        viewModel.getFactText().observe(this, mFact::setText);
+        mEqualButton.setOnClickListener(v -> viewModel.onEqualsButtonPressed());
+        mNumpad.setOnClickListener(viewModel::onNumpadButtonPressed);
     }
 
     @Override

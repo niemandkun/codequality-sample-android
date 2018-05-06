@@ -1,4 +1,4 @@
-package sample.codequality.domain;
+package sample.codequality;
 
 import android.support.annotation.NonNull;
 
@@ -13,10 +13,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import sample.codequality.domain.CalculatorInputUseCase;
 import sample.codequality.domain.calculator.Calculator;
 import sample.codequality.view.numpad.NumpadButton;
 
-public class CalculatorInputTest {
+public class _08_ExecutorTest {
     private static final String EMPTY_STRING = "";
 
     private static ExecutorService sExecutor;

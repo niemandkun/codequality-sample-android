@@ -1,4 +1,4 @@
-package sample.codequality.domain;
+package sample.codequality;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,10 +12,11 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import sample.codequality.domain.CalculatorInputUseCase;
 import sample.codequality.domain.calculator.Calculator;
 
 @RunWith(RobolectricTestRunner.class)
-public class CalculatorEvaluationTest {
+public class _06_RobolectricAsyncTaskTest {
     private static final String EMPTY_STRING = "";
 
     private static ExecutorService sExecutor;

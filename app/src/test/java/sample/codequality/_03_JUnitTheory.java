@@ -1,4 +1,4 @@
-package sample.codequality.domain.calculator;
+package sample.codequality;
 
 import junit.framework.Assert;
 
@@ -11,8 +11,12 @@ import org.junit.runner.RunWith;
 import java.util.HashMap;
 import java.util.Map;
 
+import sample.codequality.domain.calculator.Calculator;
+import sample.codequality.domain.calculator.CalculatorImpl;
+import sample.codequality.domain.calculator.Operator;
+
 @RunWith(Theories.class)
-public class TheoryCalculatorTest {
+public class _03_JUnitTheory {
     @Theory
     public void addition_worksCorrectly(
             @TestedOn(ints = {4, 5, 6}) int firstOperand,

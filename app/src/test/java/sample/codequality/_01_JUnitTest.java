@@ -1,4 +1,4 @@
-package sample.codequality.domain.calculator;
+package sample.codequality;
 
 import android.support.annotation.NonNull;
 
@@ -11,7 +11,11 @@ import org.junit.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CalculatorTest {
+import sample.codequality.domain.calculator.Calculator;
+import sample.codequality.domain.calculator.CalculatorImpl;
+import sample.codequality.domain.calculator.Operator;
+
+public class _01_JUnitTest {
     private static Map<String, Operator> sOperators;
 
     private Calculator mCalculator;
@@ -35,7 +39,7 @@ public class CalculatorTest {
     @Test
     public void appendNumber_shouldWork_withFirstOperand() {
         mCalculator.appendNumber("1");
-        assertHasState("1", "", "", "");
+        Assert.assertEquals(mCalculator.getFirstOperand(), "1");
     }
 
     @Test
