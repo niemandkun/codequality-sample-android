@@ -16,7 +16,7 @@ android {
         // Раннер тестов, который будет использован при запуске инструментируемых тестов
         //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        // Для запуска тестов со скриншотом, нужно указать кастомный раннер
+        // Для запуска тестов со скриншотом нужно указать кастомный раннер
         testInstrumentationRunner "sample.codequality.ScreenshotTestRunner"
     }
     compileOptions {
